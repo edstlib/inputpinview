@@ -48,12 +48,12 @@ class InputPINView: LinearLayoutCompat {
             val length = a.getInteger(R.styleable.InputPINView_pinLength, 4)
             val textStyleReId = a.getResourceId(R.styleable.InputPINView_pinTextStyle, 0)
             val width = a.getDimension(R.styleable.InputPINView_pinWidth,
-                resources.getDimensionPixelSize(R.dimen.dimen_40dp).toFloat())
+                resources.getDimensionPixelSize(R.dimen.pin_dimen_40dp).toFloat())
             val height = a.getDimension(R.styleable.InputPINView_pinHeight,
-                resources.getDimensionPixelSize(R.dimen.dimen_50dp).toFloat())
+                resources.getDimensionPixelSize(R.dimen.pin_dimen_50dp).toFloat())
             val textColorResId = a.getColor(R.styleable.InputPINView_pinTextColor, 0)
             val margin = a.getDimension(R.styleable.InputPINView_pinMargin,
-                resources.getDimensionPixelSize(R.dimen.dimen_8dp).toFloat())
+                resources.getDimensionPixelSize(R.dimen.pin_dimen_8dp).toFloat())
 
 
             editText = AppCompatEditText(context)
