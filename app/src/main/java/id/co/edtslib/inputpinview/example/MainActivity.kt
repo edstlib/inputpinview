@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<InputPINView>(R.id.inputPinView).delegate = object : InputPINDelegate {
-            override fun send(pin: String) {
+            override fun onCompleted(pin: String) {
                 Toast.makeText(this@MainActivity, pin, Toast.LENGTH_SHORT).show()
             }
         }

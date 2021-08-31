@@ -27,32 +27,30 @@ Here's a basic implementation.
 
 ```xml
     <id.co.edtslib.inputpinview.InputPINView
-        android:id="@+id/inputPinView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:shape="@drawable/shape_pin"
-        app:length="4"
-        app:width="@dimen/dimen_40dp"
-        app:height="@dimen/dimen_50dp"
-        app:textStyle="@style/pinstyle"
-        app:textColor="#000000"
-        app:margin="8dp" />
+    android:id="@+id/inputPinView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:pinShape="@drawable/shape_pin"
+    app:pinLength="4"
+    app:pinWidth="@dimen/dimen_40dp"
+    app:pinHeight="@dimen/dimen_50dp"
+    app:pinTextColor="#000000"
+    app:pinMargin="8dp" />
 ```
 ### Attributes information
 
 An example is shown below.
 
 ```xml
-        app:shape="@drawable/shape_pin"
-        app:length="4"
-        app:width="@dimen/dimen_40dp"
-        app:height="@dimen/dimen_50dp"
-        app:textStyle="@style/pinstyle"
-        app:textColor="#000000"
-        app:margin="8dp"
+    app:pinShape="@drawable/shape_pin"
+    app:pinLength="4"
+    app:pinWidth="@dimen/dimen_40dp"
+    app:pinHeight="@dimen/dimen_50dp"
+    app:pinTextColor="#000000"
+    app:pinMargin="8dp"
 ```
 
-##### _app:shape_
+##### _app:pinShape_
 [reference]: shape of input pin area, defaul
 
 ```xml
@@ -67,28 +65,28 @@ An example is shown below.
 </selector>
 ```
 
-##### _app:length_
+##### _app:pinLength_
 [integer]: length of pin, default 4
 
-##### _app:width_
+##### _app:pinWidth_
 [dimension]: width of pin input area, default 40dp
 
-##### _app:height_
+##### _app:pinHeight_
 [dimension]: height of pin input area, default 50dp
 
-##### _app:textStyle_
+##### _app:pinTextStyle_
 [reference]: text style of pin, default not set
 
-##### _app:textColor_
+##### _app:pinTextColor_
 [color]: text color of pin, default not set
 
-##### _app:margin_
+##### _app:pinMargin_
 [dimension]: space between pin input, default 8dp
 
 ### Listener when input completed
 ```kotlin
       findViewById<InputPINView>(R.id.inputPinView).delegate = object : InputPINDelegate {
-            override fun send(pin: String) {
+            override fun onCompleted(pin: String) {
                 Toast.makeText(this@MainActivity, pin, Toast.LENGTH_SHORT).show()
             }
         }

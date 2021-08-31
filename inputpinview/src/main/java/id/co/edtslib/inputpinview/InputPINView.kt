@@ -44,15 +44,15 @@ class InputPINView: LinearLayoutCompat {
                 0, 0
             )
 
-            val shapeResId = a.getResourceId(R.styleable.InputPINView_shape, 0)
-            val length = a.getInteger(R.styleable.InputPINView_length, 4)
-            val textStyleReId = a.getResourceId(R.styleable.InputPINView_textStyle, 0)
-            val width = a.getDimension(R.styleable.InputPINView_width,
+            val shapeResId = a.getResourceId(R.styleable.InputPINView_pinShape, 0)
+            val length = a.getInteger(R.styleable.InputPINView_pinLength, 4)
+            val textStyleReId = a.getResourceId(R.styleable.InputPINView_pinTextStyle, 0)
+            val width = a.getDimension(R.styleable.InputPINView_pinWidth,
                 resources.getDimensionPixelSize(R.dimen.dimen_40dp).toFloat())
-            val height = a.getDimension(R.styleable.InputPINView_height,
+            val height = a.getDimension(R.styleable.InputPINView_pinHeight,
                 resources.getDimensionPixelSize(R.dimen.dimen_50dp).toFloat())
-            val textColorResId = a.getColor(R.styleable.InputPINView_textColor, 0)
-            val margin = a.getDimension(R.styleable.InputPINView_margin,
+            val textColorResId = a.getColor(R.styleable.InputPINView_pinTextColor, 0)
+            val margin = a.getDimension(R.styleable.InputPINView_pinMargin,
                 resources.getDimensionPixelSize(R.dimen.dimen_8dp).toFloat())
 
 
@@ -115,7 +115,7 @@ class InputPINView: LinearLayoutCompat {
                     }
 
                     if (it.length >= length) {
-                        delegate?.send(it.toString())
+                        delegate?.onCompleted(it.toString())
                     }
                 }
             }
