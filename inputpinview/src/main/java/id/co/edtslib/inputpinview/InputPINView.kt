@@ -128,6 +128,15 @@ class InputPINView: LinearLayoutCompat {
         }
     }
 
+    fun clear() {
+        for(i in 0 until childCount) {
+            val v = getChildAt(i)
+            if (v is AppCompatTextView) {
+                v.text = ""
+            }
+        }
+    }
+
     private fun showKeyboard() {
         editText?.requestFocus()
 
