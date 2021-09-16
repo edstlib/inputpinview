@@ -129,12 +129,7 @@ class InputPINView: LinearLayoutCompat {
     }
 
     fun clear() {
-        for(i in 0 until childCount) {
-            val v = getChildAt(i)
-            if (v is AppCompatTextView) {
-                v.text = ""
-            }
-        }
+        editText?.setText("")
     }
 
     private fun showKeyboard() {
