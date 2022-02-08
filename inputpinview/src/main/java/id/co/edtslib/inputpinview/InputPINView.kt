@@ -19,6 +19,7 @@ import androidx.core.widget.addTextChangedListener
 class InputPINView: LinearLayoutCompat {
     private var editText: AppCompatEditText? = null
     private var textColorResId = 0
+    private var shapeResId = 0
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -45,7 +46,7 @@ class InputPINView: LinearLayoutCompat {
                 0, 0
             )
 
-            val shapeResId = a.getResourceId(R.styleable.InputPINView_pinShape, 0)
+            shapeResId = a.getResourceId(R.styleable.InputPINView_pinShape, 0)
             val length = a.getInteger(R.styleable.InputPINView_pinLength, 4)
             val textStyleReId = a.getResourceId(R.styleable.InputPINView_pinTextStyle, 0)
             val width = a.getDimension(R.styleable.InputPINView_pinWidth,
@@ -114,8 +115,13 @@ class InputPINView: LinearLayoutCompat {
                             val textView = getChildAt(idx + 1) as AppCompatTextView
                             textView.text = if (idx < it.length) it[idx].toString() else ""
                             textView.isSelected = idx == it.length
-                            if (textColorResId != 0 && idx == it.length) {
-                                textView.setTextColor(textColorResId)
+                            if (idx == it.length) {
+                                if (textColorResId != 0 ) {
+                                    textView.setTextColor(textColorResId)
+                                }
+                                if (shapeResId != 0) {
+                                    textView.setBackgroundResource(shapeResId)
+                                }
                             }
                         }
                     }
