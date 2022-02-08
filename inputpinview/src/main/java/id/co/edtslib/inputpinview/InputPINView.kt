@@ -142,6 +142,16 @@ class InputPINView: LinearLayoutCompat {
 
     fun clear() {
         editText?.setText("")
+
+        for (i in 1 until childCount) {
+            val textView = getChildAt(i) as AppCompatTextView
+            if (textColorResId != 0 ) {
+                textView.setTextColor(textColorResId)
+            }
+            if (shapeResId != 0) {
+                textView.setBackgroundResource(shapeResId)
+            }
+        }
     }
 
     private fun setInitialColor() {
