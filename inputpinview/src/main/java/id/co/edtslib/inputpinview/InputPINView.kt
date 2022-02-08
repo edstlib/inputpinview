@@ -18,6 +18,7 @@ import androidx.core.widget.addTextChangedListener
 
 class InputPINView: LinearLayoutCompat {
     private var editText: AppCompatEditText? = null
+    private var textColorResId = 0
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -51,7 +52,7 @@ class InputPINView: LinearLayoutCompat {
                 resources.getDimensionPixelSize(R.dimen.pin_dimen_40dp).toFloat())
             val height = a.getDimension(R.styleable.InputPINView_pinHeight,
                 resources.getDimensionPixelSize(R.dimen.pin_dimen_50dp).toFloat())
-            val textColorResId = a.getColor(R.styleable.InputPINView_pinTextColor, 0)
+            textColorResId = a.getColor(R.styleable.InputPINView_pinTextColor, 0)
             val margin = a.getDimension(R.styleable.InputPINView_pinMargin,
                 resources.getDimensionPixelSize(R.dimen.pin_dimen_8dp).toFloat())
 
@@ -76,6 +77,7 @@ class InputPINView: LinearLayoutCompat {
                 val textView = AppCompatTextView(context)
                 textView.gravity = Gravity.CENTER
                 addView(textView)
+                textView.isSelected = it == 0
 
                 textView.setOnTouchListener { _, event ->
                     if (event.action == MotionEvent.ACTION_DOWN) {
@@ -111,6 +113,10 @@ class InputPINView: LinearLayoutCompat {
                         if (idx + 1 < childCount) {
                             val textView = getChildAt(idx + 1) as AppCompatTextView
                             textView.text = if (idx < it.length) it[idx].toString() else ""
+                            textView.isSelected = idx == it.length
+                            if (textColorResId != 0 && idx == it.length) {
+                                textView.setTextColor(textColorResId)
+                            }
                         }
                     }
 
@@ -132,11 +138,34 @@ class InputPINView: LinearLayoutCompat {
         editText?.setText("")
     }
 
+    private fun setInitialColor() {
+        if (textColorResId != 0) {
+            for (i in 1 until childCount) {
+                val textView = getChildAt(i) as AppCompatTextView
+                textView.setTextColor(textColorResId);
+            }
+        }
+    }
+
     private fun showKeyboard() {
         editText?.requestFocus()
 
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    fun setTextColor(color: Int) {
+        for (i in 1 until childCount) {
+            val textView = getChildAt(i) as AppCompatTextView
+            textView.setTextColor(ContextCompat.getColor(context, color));
+        }
+    }
+
+    fun setShapeBackgroundResource(resId: Int) {
+        for (i in 1 until childCount) {
+            val textView = getChildAt(i) as AppCompatTextView
+            textView.setBackgroundResource(resId)
+        }
     }
 
 
