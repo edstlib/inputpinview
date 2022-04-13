@@ -14,8 +14,12 @@ class MainActivity : AppCompatActivity() {
         val view = findViewById<InputPINView>(R.id.inputPinView)
         view.delegate = object : InputPINDelegate {
             override fun onCompleted(pin: String) {
-                view.setTextColor(android.R.color.holo_red_dark)
-                //Toast.makeText(this@MainActivity, pin, Toast.LENGTH_SHORT).show()
+//                view.setTextColor(android.R.color.holo_red_dark)
+                Toast.makeText(this@MainActivity, pin, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onTextChanged(text: String) {
+                Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
             }
         }
     }

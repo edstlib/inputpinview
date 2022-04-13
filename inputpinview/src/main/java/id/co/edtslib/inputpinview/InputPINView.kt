@@ -16,15 +16,20 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.core.widget.addTextChangedListener
 
-class InputPINView: LinearLayoutCompat {
+class InputPINView : LinearLayoutCompat {
     private var editText: AppCompatEditText? = null
     private var textColorResId = 0
     private var shapeResId = 0
 
+    enum class PinType {
+        Number, Password
+    }
+
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        init (attrs)
+        init(attrs)
     }
+
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
@@ -49,20 +54,32 @@ class InputPINView: LinearLayoutCompat {
             shapeResId = a.getResourceId(R.styleable.InputPINView_pinShape, 0)
             val length = a.getInteger(R.styleable.InputPINView_pinLength, 4)
             val textStyleReId = a.getResourceId(R.styleable.InputPINView_pinTextStyle, 0)
-            val width = a.getDimension(R.styleable.InputPINView_pinWidth,
-                resources.getDimensionPixelSize(R.dimen.pin_dimen_40dp).toFloat())
-            val height = a.getDimension(R.styleable.InputPINView_pinHeight,
-                resources.getDimensionPixelSize(R.dimen.pin_dimen_50dp).toFloat())
+            val width = a.getDimension(
+                R.styleable.InputPINView_pinWidth,
+                resources.getDimensionPixelSize(R.dimen.pin_dimen_40dp).toFloat()
+            )
+            val height = a.getDimension(
+                R.styleable.InputPINView_pinHeight,
+                resources.getDimensionPixelSize(R.dimen.pin_dimen_50dp).toFloat()
+            )
             textColorResId = a.getColor(R.styleable.InputPINView_pinTextColor, 0)
-            val margin = a.getDimension(R.styleable.InputPINView_pinMargin,
-                resources.getDimensionPixelSize(R.dimen.pin_dimen_8dp).toFloat())
+            val margin = a.getDimension(
+                R.styleable.InputPINView_pinMargin,
+                resources.getDimensionPixelSize(R.dimen.pin_dimen_8dp).toFloat()
+            )
+            val pinType = a.getInteger(R.styleable.InputPINView_pinType, 0)
 
 
             editText = AppCompatEditText(context)
             editText?.isFocusableInTouchMode = true
             editText?.inputType = InputType.TYPE_CLASS_NUMBER
             editText?.isSingleLine = true
-            editText?.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
+            editText?.setBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    android.R.color.transparent
+                )
+            )
             editText?.isCursorVisible = false
             editText?.imeOptions = EditorInfo.IME_ACTION_DONE
 
@@ -113,10 +130,15 @@ class InputPINView: LinearLayoutCompat {
                     repeat(length) { idx ->
                         if (idx + 1 < childCount) {
                             val textView = getChildAt(idx + 1) as AppCompatTextView
-                            textView.text = if (idx < it.length) it[idx].toString() else ""
+                            textView.text = if (idx < it.length) {
+                                when (pinType) {
+                                    PinType.Password.ordinal -> "*"
+                                    else -> it[idx].toString()
+                                }
+                            } else ""
                             textView.isSelected = idx == it.length
                             if (idx == it.length) {
-                                if (textColorResId != 0 ) {
+                                if (textColorResId != 0) {
                                     textView.setTextColor(textColorResId)
                                 }
                                 if (shapeResId != 0) {
@@ -129,12 +151,14 @@ class InputPINView: LinearLayoutCompat {
                     if (it.length >= length) {
                         delegate?.onCompleted(it.toString())
                     }
+
+                    delegate?.onTextChanged(it.toString())
                 }
             }
 
             a.recycle()
 
-            postDelayed( {
+            postDelayed({
                 showKeyboard()
             }, 250)
         }
@@ -145,7 +169,7 @@ class InputPINView: LinearLayoutCompat {
 
         for (i in 1 until childCount) {
             val textView = getChildAt(i) as AppCompatTextView
-            if (textColorResId != 0 ) {
+            if (textColorResId != 0) {
                 textView.setTextColor(textColorResId)
             }
             if (shapeResId != 0) {
