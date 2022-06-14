@@ -8,9 +8,11 @@
         <attr name="pinTextStyle" format="reference" />
         <attr name="pinTextColor" format="color" />
         <attr name="pinMargin" format="dimension" />
+        <attr name="pinEyePassword" format="reference" />
         <attr name="pinType" format="enum">
             <enum name="number" value="0" />
             <enum name="password" value="1" />
+            <enum name="passwordWithEye" value="2" />
         </attr>
     </declare-styleable>
 

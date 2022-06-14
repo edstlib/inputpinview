@@ -9,7 +9,9 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
@@ -20,9 +22,11 @@ class InputPINView : LinearLayoutCompat {
     private var editText: AppCompatEditText? = null
     private var textColorResId = 0
     private var shapeResId = 0
+    private var length = 4
+    private var showPassword = false // false maka muncul *
 
     enum class PinType {
-        Number, Password
+        Number, Password, PasswordWithEye
     }
 
     constructor(context: Context) : super(context)
@@ -52,7 +56,7 @@ class InputPINView : LinearLayoutCompat {
             )
 
             shapeResId = a.getResourceId(R.styleable.InputPINView_pinShape, 0)
-            val length = a.getInteger(R.styleable.InputPINView_pinLength, 4)
+            length = a.getInteger(R.styleable.InputPINView_pinLength, 4)
             val textStyleReId = a.getResourceId(R.styleable.InputPINView_pinTextStyle, 0)
             val width = a.getDimension(
                 R.styleable.InputPINView_pinWidth,
@@ -68,11 +72,13 @@ class InputPINView : LinearLayoutCompat {
                 resources.getDimensionPixelSize(R.dimen.pin_dimen_8dp).toFloat()
             )
             val pinType = a.getInteger(R.styleable.InputPINView_pinType, 0)
-
+            val pinEyePassword = a.getResourceId(R.styleable.InputPINView_pinEyePassword,
+                R.drawable.img_password_eye)
 
             editText = AppCompatEditText(context)
             editText?.isFocusableInTouchMode = true
             editText?.inputType = InputType.TYPE_CLASS_NUMBER
+            editText?.gravity = Gravity.CENTER
             editText?.isSingleLine = true
             editText?.setBackgroundColor(
                 ContextCompat.getColor(
@@ -128,11 +134,18 @@ class InputPINView : LinearLayoutCompat {
             editText?.addTextChangedListener {
                 if (it != null) {
                     repeat(length) { idx ->
-                        if (idx + 1 < childCount) {
+                        if (idx < length) {
                             val textView = getChildAt(idx + 1) as AppCompatTextView
                             textView.text = if (idx < it.length) {
                                 when (pinType) {
                                     PinType.Password.ordinal -> "*"
+                                    PinType.PasswordWithEye.ordinal ->
+                                        if (showPassword) {
+                                            it[idx].toString()
+                                        } else {
+                                            "*"
+                                        }
+
                                     else -> it[idx].toString()
                                 }
                             } else ""
@@ -156,6 +169,39 @@ class InputPINView : LinearLayoutCompat {
                 }
             }
 
+            if (pinType == PinType.PasswordWithEye.ordinal) {
+                val imageView = AppCompatImageView(context)
+                addView(imageView)
+
+                imageView.setImageResource(pinEyePassword)
+
+                val layoutParams = imageView.layoutParams as LinearLayout.LayoutParams
+                layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT
+                layoutParams.marginStart = margin.toInt()
+
+                imageView.setOnClickListener {
+                    showPassword = ! showPassword
+                    imageView.isSelected = showPassword
+
+                    repeat(length) { idx ->
+                        val s = editText?.text?.toString()
+
+                        if (s != null) {
+                            val textView = getChildAt(idx + 1) as AppCompatTextView
+                            val cc = if (idx < s.length) s[idx].toString() else ""
+                            if (cc.isNotEmpty()) {
+                                textView.text = if (showPassword) s[idx].toString() else "*"
+                            }
+                            else {
+                                textView.text = ""
+                            }
+
+
+                        }
+                    }
+                }
+            }
+
             a.recycle()
 
             postDelayed({
@@ -167,7 +213,7 @@ class InputPINView : LinearLayoutCompat {
     fun clear() {
         editText?.setText("")
 
-        for (i in 1 until childCount) {
+        for (i in 1 until length+1) {
             val textView = getChildAt(i) as AppCompatTextView
             if (textColorResId != 0) {
                 textView.setTextColor(textColorResId)
@@ -180,9 +226,9 @@ class InputPINView : LinearLayoutCompat {
 
     private fun setInitialColor() {
         if (textColorResId != 0) {
-            for (i in 1 until childCount) {
+            for (i in 1 until length+1) {
                 val textView = getChildAt(i) as AppCompatTextView
-                textView.setTextColor(textColorResId);
+                textView.setTextColor(textColorResId)
             }
         }
     }
@@ -195,14 +241,14 @@ class InputPINView : LinearLayoutCompat {
     }
 
     fun setTextColor(color: Int) {
-        for (i in 1 until childCount) {
+        for (i in 1 until length+1) {
             val textView = getChildAt(i) as AppCompatTextView
-            textView.setTextColor(ContextCompat.getColor(context, color));
+            textView.setTextColor(ContextCompat.getColor(context, color))
         }
     }
 
     fun setShapeBackgroundResource(resId: Int) {
-        for (i in 1 until childCount) {
+        for (i in 1 until length+1) {
             val textView = getChildAt(i) as AppCompatTextView
             textView.setBackgroundResource(resId)
         }

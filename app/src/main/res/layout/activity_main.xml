@@ -17,6 +17,7 @@
         app:pinHeight="@dimen/pin_dimen_50dp"
         app:pinTextColor="#000000"
         app:pinMargin="8dp"
+        app:pinType="passwordWithEye"
         app:pinTextStyle="@style/PinStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

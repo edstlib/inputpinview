@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(text: String) {
-                Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
             }
         }
     }
