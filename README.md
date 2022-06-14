@@ -35,6 +35,7 @@ Here's a basic implementation.
     app:pinWidth="@dimen/dimen_40dp"
     app:pinHeight="@dimen/dimen_50dp"
     app:pinTextColor="#000000"
+    app:pinType="passwordWithEye"
     app:pinMargin="8dp" />
 ```
 ### Attributes information
@@ -48,10 +49,28 @@ An example is shown below.
     app:pinHeight="@dimen/dimen_50dp"
     app:pinTextColor="#000000"
     app:pinMargin="8dp"
+    app:pinType="passwordWithEye"
+    app:pinEyePassword="@drawable/img_password_eye"
+```
+
+##### _app:pinType_
+[enum]: input type of PIN
+1. number: pin show number
+2. password: pin show *
+3. passwordWithEye: number/passwword combination with icon eye
+
+##### _app:pinEyePassword_
+[reference]: eye of password if pinType = passwordWithEye
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_visible" android:state_selected="true" />
+    <item android:drawable="@drawable/ic_invisible" />
+</selector>
 ```
 
 ##### _app:pinShape_
-[reference]: shape of input pin area, defaul
+[reference]: shape of input pin area, default
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -86,10 +105,10 @@ An example is shown below.
 ### Listener when input completed
 ```kotlin
       findViewById<InputPINView>(R.id.inputPinView).delegate = object : InputPINDelegate {
-            override fun onCompleted(pin: String) {
-                Toast.makeText(this@MainActivity, pin, Toast.LENGTH_SHORT).show()
-            }
-        }
+    override fun onCompleted(pin: String) {
+        Toast.makeText(this@MainActivity, pin, Toast.LENGTH_SHORT).show()
+    }
+}
 ```
 
 
