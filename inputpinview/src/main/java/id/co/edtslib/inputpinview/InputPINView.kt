@@ -183,7 +183,7 @@ class InputPINView : LinearLayoutCompat {
                     showPassword = ! showPassword
                     imageView.isSelected = showPassword
 
-                    redraw()
+                    redraw(showPassword)
                 }
             }
 
@@ -195,7 +195,7 @@ class InputPINView : LinearLayoutCompat {
         }
     }
 
-    fun redraw() {
+    fun redraw(showPassword: Boolean) {
         repeat(length) { idx ->
             val s = editText?.text?.toString()
 
