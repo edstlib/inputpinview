@@ -183,22 +183,7 @@ class InputPINView : LinearLayoutCompat {
                     showPassword = ! showPassword
                     imageView.isSelected = showPassword
 
-                    repeat(length) { idx ->
-                        val s = editText?.text?.toString()
-
-                        if (s != null) {
-                            val textView = getChildAt(idx + 1) as AppCompatTextView
-                            val cc = if (idx < s.length) s[idx].toString() else ""
-                            if (cc.isNotEmpty()) {
-                                textView.text = if (showPassword) s[idx].toString() else "*"
-                            }
-                            else {
-                                textView.text = ""
-                            }
-
-
-                        }
-                    }
+                    redraw()
                 }
             }
 
@@ -207,6 +192,25 @@ class InputPINView : LinearLayoutCompat {
             postDelayed({
                 showKeyboard()
             }, 250)
+        }
+    }
+
+    fun redraw() {
+        repeat(length) { idx ->
+            val s = editText?.text?.toString()
+
+            if (s != null) {
+                val textView = getChildAt(idx + 1) as AppCompatTextView
+                val cc = if (idx < s.length) s[idx].toString() else ""
+                if (cc.isNotEmpty()) {
+                    textView.text = if (showPassword) s[idx].toString() else "*"
+                }
+                else {
+                    textView.text = ""
+                }
+
+
+            }
         }
     }
 
