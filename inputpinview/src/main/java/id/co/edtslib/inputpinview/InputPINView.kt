@@ -23,7 +23,8 @@ class InputPINView : LinearLayoutCompat {
     private var textColorResId = 0
     private var shapeResId = 0
     private var length = 4
-    private var showPassword = false // false maka muncul *
+    private var showPassword = false // false. show *
+    private var pinType = PinType.Number.ordinal
 
     enum class PinType {
         Number, Password, PasswordWithEye
@@ -71,7 +72,7 @@ class InputPINView : LinearLayoutCompat {
                 R.styleable.InputPINView_pinMargin,
                 resources.getDimensionPixelSize(R.dimen.pin_dimen_8dp).toFloat()
             )
-            val pinType = a.getInteger(R.styleable.InputPINView_pinType, 0)
+            pinType = a.getInteger(R.styleable.InputPINView_pinType, 0)
             val pinEyePassword = a.getResourceId(R.styleable.InputPINView_pinEyePassword,
                 R.drawable.img_password_eye)
 
@@ -195,7 +196,12 @@ class InputPINView : LinearLayoutCompat {
         }
     }
 
-    fun redraw(showPassword: Boolean) {
+    fun setPinType(pinType: PinType) {
+        this.pinType = pinType.ordinal
+        redraw(pinType == PinType.Number)
+    }
+
+    private fun redraw(showPassword: Boolean) {
         repeat(length) { idx ->
             val s = editText?.text?.toString()
 
