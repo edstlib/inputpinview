@@ -9,6 +9,8 @@
         <attr name="pinTextColor" format="color" />
         <attr name="pinMargin" format="dimension" />
         <attr name="pinEyePassword" format="reference" />
+        <attr name="pinPasswordAnimate" format="integer" />
+        <attr name="appPasswordSymbol" format="string" />
         <attr name="pinType" format="enum">
             <enum name="number" value="0" />
             <enum name="password" value="1" />
