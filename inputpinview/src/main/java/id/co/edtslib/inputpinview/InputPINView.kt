@@ -25,7 +25,7 @@ class InputPINView : LinearLayoutCompat {
     private var length = 4
     private var showPassword = false // false. show *
     private var pinType = PinType.Number.ordinal
-    private var appPasswordSymbol: String? = null
+    private var pinPasswordSymbol: String? = null
 
     enum class PinType {
         Number, Password, PasswordWithEye
@@ -78,9 +78,9 @@ class InputPINView : LinearLayoutCompat {
                 R.drawable.img_password_eye)
 
             val pinPasswordAnimate = a.getInteger(R.styleable.InputPINView_pinPasswordAnimate, 0)
-            appPasswordSymbol = a.getString(R.styleable.InputPINView_appPasswordSymbol)
-            if (appPasswordSymbol == null) {
-                appPasswordSymbol = "*"
+            pinPasswordSymbol = a.getString(R.styleable.InputPINView_pinPasswordSymbol)
+            if (pinPasswordSymbol == null) {
+                pinPasswordSymbol = "*"
             }
 
             editText = AppCompatEditText(context)
@@ -148,12 +148,12 @@ class InputPINView : LinearLayoutCompat {
                             textView.text = if (idx < it.length) {
                                 when (pinType) {
                                     PinType.Password.ordinal -> {
-                                        if (textView.text != appPasswordSymbol && idx+1 == l) {
+                                        if (textView.text != pinPasswordSymbol && idx+1 == l) {
                                             animate(idx, pinPasswordAnimate)
                                             it[idx].toString()
                                         }
                                         else {
-                                            appPasswordSymbol
+                                            pinPasswordSymbol
                                         }
                                     }
                                     PinType.PasswordWithEye.ordinal ->
@@ -161,16 +161,16 @@ class InputPINView : LinearLayoutCompat {
                                             it[idx].toString()
                                         } else {
                                             if (pinPasswordAnimate > 0) {
-                                                if (textView.text != appPasswordSymbol && idx+1 == l) {
+                                                if (textView.text != pinPasswordSymbol && idx+1 == l) {
                                                     animate(idx, pinPasswordAnimate)
                                                     it[idx].toString()
                                                 }
                                                 else {
-                                                    appPasswordSymbol
+                                                    pinPasswordSymbol
                                                 }
                                             }
                                             else {
-                                                appPasswordSymbol
+                                                pinPasswordSymbol
                                             }
                                         }
 
@@ -226,7 +226,7 @@ class InputPINView : LinearLayoutCompat {
     private fun animate(idx: Int, delay: Int) {
         editText?.postDelayed({
             val textView = getChildAt(idx + 1) as AppCompatTextView
-            textView.text = appPasswordSymbol
+            textView.text = pinPasswordSymbol
         }, delay.toLong())
     }
 

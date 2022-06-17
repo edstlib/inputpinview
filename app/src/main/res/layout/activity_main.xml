@@ -18,7 +18,7 @@
         app:pinTextColor="#000000"
         app:pinMargin="8dp"
         app:pinPasswordAnimate="0"
-        app:appPasswordSymbol="="
+        app:pinPasswordSymbol="•"
         app:pinType="password"
         app:pinEyePassword="@drawable/img_password_eye"
         app:pinTextStyle="@style/PinStyle"

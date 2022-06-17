@@ -69,6 +69,12 @@ An example is shown below.
 </selector>
 ```
 
+##### _app:pinPasswordSymbol_
+[string]: password symbol
+
+##### _app:pinPasswordAnimate_
+[integer]: delay time (millisecond) typed to password symbol
+
 ##### _app:pinShape_
 [reference]: shape of input pin area, default
 
