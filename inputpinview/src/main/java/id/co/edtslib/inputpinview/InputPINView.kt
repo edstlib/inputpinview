@@ -83,7 +83,7 @@ class InputPINView : LinearLayoutCompat {
                 pinPasswordSymbol = "*"
             }
 
-            editText = AppCompatEditText(context)
+            editText = NoPasteEditText(context)
             editText?.isFocusableInTouchMode = true
             editText?.inputType = InputType.TYPE_CLASS_NUMBER
             editText?.gravity = Gravity.CENTER
