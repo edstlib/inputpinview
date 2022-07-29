@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
             override fun onCompleted(pin: String) {
 //                view.setTextColor(android.R.color.holo_red_dark)
                 Toast.makeText(this@MainActivity, pin, Toast.LENGTH_SHORT).show()
+                view.clear()
             }
 
             override fun onTextChanged(text: String) {

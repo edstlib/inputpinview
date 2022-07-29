@@ -224,10 +224,22 @@ class InputPINView : LinearLayoutCompat {
     }
 
     private fun animate(idx: Int, delay: Int) {
-        editText?.postDelayed({
-            val textView = getChildAt(idx + 1) as AppCompatTextView
-            textView.text = pinPasswordSymbol
-        }, delay.toLong())
+        val textView = getChildAt(idx + 1) as AppCompatTextView
+        if (textView.tag != null && textView.tag is Runnable) {
+            textView.removeCallbacks(textView.tag as Runnable)
+        }
+
+        val runnable = {
+            if (editText != null && idx <  editText!!.length() ) {
+                textView.text = pinPasswordSymbol
+            }
+            else {
+                textView.text = ""
+            }
+            textView.tag = null
+        }
+        textView.tag = runnable
+        textView.postDelayed(runnable, delay.toLong())
     }
 
     fun setPinType(pinType: PinType) {
