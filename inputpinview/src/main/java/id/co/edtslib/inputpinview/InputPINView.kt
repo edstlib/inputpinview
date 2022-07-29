@@ -2,6 +2,7 @@ package id.co.edtslib.inputpinview
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.text.InputFilter
 import android.text.InputType
 import android.util.AttributeSet
@@ -84,6 +85,9 @@ class InputPINView : LinearLayoutCompat {
             }
 
             editText = NoPasteEditText(context)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                editText?.importantForAutofill = IMPORTANT_FOR_AUTOFILL_NO
+            }
             editText?.isFocusableInTouchMode = true
             editText?.inputType = InputType.TYPE_CLASS_NUMBER
             editText?.gravity = Gravity.CENTER
