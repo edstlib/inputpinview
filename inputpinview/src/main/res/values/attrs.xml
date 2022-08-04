@@ -11,6 +11,8 @@
         <attr name="pinEyePassword" format="reference" />
         <attr name="pinPasswordAnimate" format="integer" />
         <attr name="pinPasswordSymbol" format="string" />
+        <attr name="pinHint" format="string" />
+        <attr name="pinHintColor" format="color" />
         <attr name="pinType" format="enum">
             <enum name="number" value="0" />
             <enum name="password" value="1" />

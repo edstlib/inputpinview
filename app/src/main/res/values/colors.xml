@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorBlack30">#DCDEE3</color>
+    <color name="colorPrimary20">#368BE2</color>
+    <color name="colorBlack40">#9C9DA6</color>
+    <color name="colorBlack70">#151823</color>
+
+    <dimen name="dimen_1dp">1dp</dimen>
+    <dimen name="dimen_6dp">6dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_4dp">4dp</dimen>
+
 </resources>
