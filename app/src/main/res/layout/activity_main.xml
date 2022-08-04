@@ -42,7 +42,7 @@
         app:pinHeight="0dp"
         app:pinWidth="0dp"
         app:pinHint="X"
-        app:pinHintColor="@color/colorBlack30"
+        app:pinHintTextColor="@color/colorBlack30"
         app:pinTextStyle="@style/Headline1"
         app:pinTextColor="@color/colorBlack70"
         android:layout_width="wrap_content"

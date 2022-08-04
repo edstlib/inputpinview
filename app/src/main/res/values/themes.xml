@@ -18,4 +18,8 @@
         <item name="android:textSize">28sp</item>
         <item name="android:inputType">numberPassword</item>
     </style>
+
+    <style name="Headline1">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

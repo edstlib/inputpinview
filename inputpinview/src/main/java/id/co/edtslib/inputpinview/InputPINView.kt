@@ -86,7 +86,7 @@ class InputPINView : LinearLayoutCompat {
             }
 
             val pinHint = a.getString(R.styleable.InputPINView_pinHint)
-            val pinHintColor = a.getColor(R.styleable.InputPINView_pinHintColor, 0)
+            val pinHintColor = a.getColor(R.styleable.InputPINView_pinHintTextColor, 0)
 
 
             editText = NoPasteEditText(context)

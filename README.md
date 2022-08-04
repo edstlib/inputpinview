@@ -108,6 +108,13 @@ An example is shown below.
 ##### _app:pinMargin_
 [dimension]: space between pin input, default 8dp
 
+##### _app:pinHintTextColor_
+[color]: text color of hint, default not set
+
+##### _app:pinHint_
+[string]: text of hint, default not set
+
+
 ### Listener when input completed
 ```kotlin
       findViewById<InputPINView>(R.id.inputPinView).delegate = object : InputPINDelegate {
