@@ -12,15 +12,5 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val view = findViewById<InputPINView>(R.id.inputPinView)
-        view.delegate = object : InputPINDelegate {
-            override fun onCompleted(pin: String) {
-//                view.setTextColor(android.R.color.holo_red_dark)
-                Toast.makeText(this@MainActivity, pin, Toast.LENGTH_SHORT).show()
-                view.clear()
-            }
-
-            override fun onTextChanged(text: String) {
-            }
-        }
     }
 }
