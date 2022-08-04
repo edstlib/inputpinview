@@ -8,6 +8,7 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
@@ -84,6 +85,10 @@ class InputPINView : LinearLayoutCompat {
                 pinPasswordSymbol = "*"
             }
 
+            val pinHint = a.getString(R.styleable.InputPINView_pinHint)
+            val pinHintColor = a.getColor(R.styleable.InputPINView_pinHintColor, 0)
+
+
             editText = NoPasteEditText(context)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 editText?.importantForAutofill = IMPORTANT_FOR_AUTOFILL_NO
@@ -111,8 +116,8 @@ class InputPINView : LinearLayoutCompat {
 
             repeat(length) {
                 val textView = AppCompatTextView(context)
-                textView.gravity = Gravity.CENTER
                 addView(textView)
+                textView.gravity = Gravity.CENTER
                 textView.isSelected = it == 0
 
                 textView.setOnTouchListener { _, event ->
@@ -124,8 +129,9 @@ class InputPINView : LinearLayoutCompat {
                 }
 
                 val layoutParams = textView.layoutParams as LayoutParams
-                layoutParams.width = width.toInt()
-                layoutParams.height = height.toInt()
+                layoutParams.width = if (width == 0f) ViewGroup.LayoutParams.WRAP_CONTENT else width.toInt()
+                layoutParams.height = if (width == 0f) ViewGroup.LayoutParams.WRAP_CONTENT else height.toInt()
+                layoutParams.gravity = Gravity.CENTER
                 if (it > 0) {
                     layoutParams.leftMargin = margin.toInt()
                 }
@@ -140,6 +146,11 @@ class InputPINView : LinearLayoutCompat {
 
                 if (textColorResId != 0) {
                     textView.setTextColor(textColorResId)
+                }
+
+                if (pinHint?.isNotEmpty() == true) {
+                    textView.hint = pinHint
+                    textView.setHintTextColor(pinHintColor)
                 }
             }
 
