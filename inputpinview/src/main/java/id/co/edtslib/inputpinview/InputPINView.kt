@@ -275,8 +275,6 @@ class InputPINView : LinearLayoutCompat {
                 else {
                     textView.text = ""
                 }
-
-
             }
         }
     }
